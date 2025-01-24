@@ -19,35 +19,35 @@ function App() {
 
   const [d, setD] = useState("")
 
-  const getRouteCoordinates = async () => {
-    try {
-      const response = await fetch(
-        'http://router.project-osrm.org/route/v1/driving/69.240562,41.311081;69.279145,41.312344?steps=true'
-      );
+  // const getRouteCoordinates = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       'http://router.project-osrm.org/route/v1/driving/69.240562,41.311081;69.279145,41.312344?steps=true'
+  //     );
       
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
       
-      const data = await response.json();
+  //     const data = await response.json();
       
-      // Извлекаем координаты шагов маршрута
-      const route = data.routes[0].legs[0].steps;
-      const coordinates = route.map(step => [
-        step.maneuver.location[1], // Долгота
-        step.maneuver.location[0]  // Широта
-      ]);
+  //     // Извлекаем координаты шагов маршрута
+  //     const route = data.routes[0].legs[0].steps;
+  //     const coordinates = route.map(step => [
+  //       step.maneuver.location[1], // Долгота
+  //       step.maneuver.location[0]  // Широта
+  //     ]);
       
-      return coordinates;
-    } catch (error) {
-      console.error('Error fetching route', error);
-    }
-  };
+  //     return coordinates;
+  //   } catch (error) {
+  //     console.error('Error fetching route', error);
+  //   }
+  // };
 
-  getRouteCoordinates().then(coordinates => {
-    console.log(coordinates); // Это будет массив с координатами
-    setD(coordinates)
-  });
+  // getRouteCoordinates().then(coordinates => {
+  //   console.log(coordinates); // Это будет массив с координатами
+  //   setD(coordinates)
+  // });
   
 
   return (
@@ -63,7 +63,7 @@ function App() {
           attribution=""
         />
         {/* Добавляем линию маршрута */}
-        <Polyline positions={d} color="blue" weight={4} opacity={0.7} />
+        <Polyline positions={ROUTE_COORDINATES} color="blue" weight={4} opacity={0.7} />
       </MapContainer>
     </div>
   );
